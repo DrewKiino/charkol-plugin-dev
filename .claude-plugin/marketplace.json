@@ -6,7 +6,7 @@
   },
   "plugins": [
     {
-      "name": "charkol",
+      "name": "charkol-dev",
       "source": "./plugin",
       "description": "Design in Charkol with your own Claude Code"
     }

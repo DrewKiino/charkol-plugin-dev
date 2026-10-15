@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "charkol": {
-      "command": "${CLAUDE_PLUGIN_ROOT}/bin/charkol",
+      "command": "${CLAUDE_PLUGIN_ROOT}/bin/charkol-dev",
       "args": ["mcp"]
     }
   }
