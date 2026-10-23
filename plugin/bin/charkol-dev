@@ -69,7 +69,11 @@ else
   runtime="$runtimes/$version"
 fi
 
+CHARKOL_LAUNCHER="$plugin_root/bin/$(basename "$0")"
+export CHARKOL_LAUNCHER
+
 case "${1:-}" in
+  tasks) exec "$runtime/charkol-bridge" "$@" ;;
   watch) exec "$runtime/charkol-bridge" watch ;;
   hook) exec "$runtime/charkol-bridge" hook ;;
   mcp) exec "$runtime/charkol-bridge" ;;
