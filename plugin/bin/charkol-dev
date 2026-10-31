@@ -52,6 +52,30 @@ install_latest() {
   printf '%s\n' "$latest" > "$runtimes/current"
 }
 
+case "${1:-} ${2:-}" in
+  "open web")
+    if pgrep -fxq "$desktop_app/Contents/MacOS/charkol"; then
+      echo "The Charkol app is running on this machine, so Charkol web can't start. Quit the app, then try again." >&2
+      exit 1
+    fi
+    desktop_app=/nonexistent
+    CHARKOL_DESKTOP_APP=$desktop_app
+    export CHARKOL_DESKTOP_APP
+    set -- open
+    ;;
+  "open app")
+    if [ ! -x "$desktop_app/Contents/MacOS/charkol" ]; then
+      echo "The Charkol app isn't installed on this machine." >&2
+      exit 1
+    fi
+    if pgrep -fq "$runtimes/.*/charkol serve$"; then
+      echo "Charkol web's server is running on this machine, so the Charkol app can't open. Stop it, then try again." >&2
+      exit 1
+    fi
+    set -- open
+    ;;
+esac
+
 if [ -x "$desktop_app/Contents/MacOS/charkol" ]; then
   runtime="$desktop_app/Contents/MacOS"
 else

@@ -1,8 +1,17 @@
 ---
-description: Open Charkol and work on its designs and comments. Use when the user wants to design something in Charkol, open Charkol, work on Charkol comments, says "connect to Charkol dev" (open Charkol, then register this session as a Charkol agent), or says "allow the browser".
+description: Open Charkol and work on its designs and comments. Use when the user wants to design something in Charkol, open Charkol, work on Charkol comments, says "connect to Charkol dev", "connect to Charkol dev web" or "connect to Charkol dev app" (open Charkol there, then register this session as a Charkol agent), or says "allow the browser".
 ---
 
-1. Run `charkol-dev open`. It starts Charkol if needed. With the Charkol app installed it opens the app on this session's tab. Otherwise it prints a code for Charkol web, or says Charkol web is already connected, and then there's no code to wait for. When it prints a code, after step 2 your whole reply is what it printed, as written, with the code alone on its own line in bold, like **4K7 M2X**. Add nothing else: no name yet, and nothing about what the user still needs to do or has done. The Monitor tells you when their browser connects, and you say your name then. Never make up a code. If it fails, tell the user its message as written. Never ask for, print or pass on a pairing link.
+
+1. Run the command for what the user said. It starts Charkol if needed.
+
+| The user says | Run | It opens |
+|---|---|---|
+| "connect to Charkol dev" | `charkol-dev open` | The Charkol app if it's installed on this machine, otherwise Charkol web |
+| "connect to Charkol dev web" | `charkol-dev open web` | Charkol web, even with the Charkol app installed |
+| "connect to Charkol dev app" | `charkol-dev open app` | The Charkol app. It fails if the app isn't installed |
+
+The app opens on this session's tab. Charkol web prints a code, or says Charkol web is already connected, and then there's no code to wait for. When it prints a code, after step 2 your whole reply is what it printed, as written, with the code alone on its own line in bold, like **4K7 M2X**. Add nothing else: no name yet, and nothing about what the user still needs to do or has done. The Monitor tells you when their browser connects, and you say your name then. Never make up a code. If it fails, tell the user its message as written. Never ask for, print or pass on a pairing link.
 2. Call mcp__plugin_charkol-dev_charkol__connect, then start the Monitor its reply gives you. Its first line, "Connected to Charkol as @<Name>", is your name in Charkol: tell the user, so they can pick @<Name> on a task to send it to you. If step 1 printed a code, wait and say your name when the Monitor reports the browser connected. Start the Monitor again with the same command whenever it expires.
 3. Tasks the user leaves arrive through that Monitor as lines starting "The user queued Charkol task " or "The user sent you a message in Charkol". Do each one with the mcp__plugin_charkol-dev_charkol__ tools, then call complete_task or fail_task.
 4. The user is watching Charkol, so ask in the terminal when something is unclear. Links from link_to_design_file open in this session's tab.
